@@ -8,9 +8,11 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 
+
 import java.time.Duration;
 
 public class Driver {
+
     private static WebDriver driver;
 
     public static void setChromeDriver(){
@@ -44,4 +46,6 @@ public class Driver {
     public static void quitDriver(){
         driver.quit();
     }
+
+
 }
