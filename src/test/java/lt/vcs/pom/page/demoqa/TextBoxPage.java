@@ -31,4 +31,15 @@ public class TextBoxPage {
     public static String readFullName() {
         return Common.getTextFromElement(By.xpath("//p[@id='name']"));
     }
+
+    public static void enterUserEmail(String input) {
+        Common.sendKeysToElement(
+                By.xpath("//input[@id='userEmail']"),
+                input
+        );
+    }
+
+    public static String readUserEmail() {
+        return Common.getTextFromElement(By.xpath("//p[@id='email']"));
+    }
 }

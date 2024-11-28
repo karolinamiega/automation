@@ -15,7 +15,7 @@ public class TextBoxTest {
         TextBoxPage.open();
     }
     @Test
-    public void testFullName() {
+    public void testFullNameExpectedContainsKarolina() {
         String inputFullName = "Karolina";
         String expectedResult = "Karolina";
         String actualResult;
@@ -32,6 +32,25 @@ public class TextBoxTest {
         );
 
     }
+
+    @Test
+    public void testEmail(){
+        String inputEmail = "email@gmail.com";
+        String expectedResult = "email@gmail.com";
+        String actualResult;
+
+        TextBoxPage.enterUserEmail(inputEmail);
+
+        TextBoxPage.clickOnButtonSubmit();
+
+        actualResult = TextBoxPage.readUserEmail();
+
+        Assert.assertTrue(
+                actualResult.contains(expectedResult),
+                "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
+        );
+    }
+
     @AfterMethod
     public void tearDown(){
         TextBoxPage.close();
