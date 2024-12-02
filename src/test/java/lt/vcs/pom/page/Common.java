@@ -4,6 +4,8 @@ import lt.vcs.pom.util.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.LinkedHashMap;
@@ -82,5 +84,28 @@ public class Common {
 
     public static boolean isElementDisabled(By locator) {
         return getElement(locator).isEnabled();
+    }
+
+    public static boolean isElementSelected(By locator) {
+        return getElement(locator).isSelected();
+    }
+
+    public static boolean waitCustomisedElementSelected(By locator, int seconds){
+        WebElement element = getElement(locator);
+
+            for (int i = 0; i < seconds * 2; i++) {
+                try {
+                if(element.isSelected()) return true;
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+        }
+        return false;
+    }
+
+    public static void waitElementSelected(By locator, int seconds){
+        WebDriverWait webDriverWait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(seconds));
+        webDriverWait.until(ExpectedConditions.elementToBeSelected(locator));
     }
 }

@@ -1,5 +1,6 @@
 package lt.vcs.pom.page.demoqa;
 import lt.vcs.pom.page.Common;
+import lt.vcs.pom.page.Locator;
 import lt.vcs.pom.util.Driver;
 import org.openqa.selenium.By;
 
@@ -20,48 +21,48 @@ public class TextBoxPage {
     public static void enterUserName(String input) {
 
         Common.sendKeysToElement(
-                By.xpath("//input[@id='userName']"),
+                Locator.DemoQa.TextBoxPage.inputUserName,
                 input
         );
     }
 
     public static void clickOnButtonSubmit() {
-        Common.clickOnElement(By.xpath("//button[@id='submit']"));
+        Common.clickOnElement(Locator.DemoQa.TextBoxPage.buttonSubmit);
     }
 
     public static String readFullName() {
-        return Common.getTextFromElement(By.xpath("//p[@id='name']"));
+        return Common.getTextFromElement(Locator.DemoQa.TextBoxPage.paragraphName);
     }
 
     public static void enterUserEmail(String input) {
         Common.sendKeysToElement(
-                By.xpath("//input[@id='userEmail']"),
+                Locator.DemoQa.TextBoxPage.userEmail,
                 input
         );
     }
 
     public static String readUserEmail() {
-        return Common.getTextFromElement(By.xpath("//p[@id='email']"));
+        return Common.getTextFromElement(Locator.DemoQa.TextBoxPage.paragraphEmail);
     }
 
     public static void enterCurrentAddress(String input) {
         Common.sendKeysToElement(
-                By.xpath("//textarea[@id='currentAddress']"),
+                Locator.DemoQa.TextBoxPage.textareaCurrentAddress,
                 input
         );
     }
 
     public static String readCurrentAddress() {
-        return Common.getTextFromElement(By.xpath("//p[@id='currentAddress']"));
+        return Common.getTextFromElement(Locator.DemoQa.TextBoxPage.paragraphCurrentAddress);
     }
 
     public static void enterPermanentAddress(String input) {
         Common.sendKeysToElement(
-                By.xpath("//textarea[@id='permanentAddress']"),
+                Locator.DemoQa.TextBoxPage.paragraphPermanentAddress,
                 input
         );
     }
     public static String readPermanentAddress() {
-        return Common.getTextFromElement(By.xpath("//p[@id='permanentAddress']"));
+        return Common.getTextFromElement(Locator.DemoQa.TextBoxPage.paragraphPermanentAddress);
     }
 }
