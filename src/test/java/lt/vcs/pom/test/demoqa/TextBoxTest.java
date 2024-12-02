@@ -7,6 +7,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import org.w3c.dom.Text;
 
 public class TextBoxTest {
 
@@ -49,6 +50,39 @@ public class TextBoxTest {
                 actualResult.contains(expectedResult),
                 "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
         );
+    }
+
+    @Test
+    public void testCurrentAddressInput(){
+        String inputCurrentAddress = "Adresas 01, Vilnius";
+        String expectedResult = "Adresas 01, Vilnius";
+        String actualResult;
+
+        TextBoxPage.enterCurrentAddress(inputCurrentAddress);
+        TextBoxPage.clickOnButtonSubmit();
+        actualResult = TextBoxPage.readCurrentAddress();
+
+        Assert.assertTrue(
+                actualResult.contains(expectedResult),
+                "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
+        );
+
+    }
+    @Test
+    public void testPermanentAddressInput(){
+        String inputPermanentAddress = "Adresas 02, Vilnius";
+        String expectedResult = "Adresas 02, Vilnius";
+        String actualResult;
+
+        TextBoxPage.enterPermanentAddress(inputPermanentAddress);
+        TextBoxPage.clickOnButtonSubmit();
+        actualResult = TextBoxPage.readPermanentAddress();
+
+        Assert.assertTrue(
+                actualResult.contains(expectedResult),
+                "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
+        );
+
     }
 
     @AfterMethod

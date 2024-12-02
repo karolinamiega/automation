@@ -12,6 +12,7 @@ public class TextBoxPage {
     }
 
 
+
     public static void close() {
         Common.close();
     }
@@ -41,5 +42,26 @@ public class TextBoxPage {
 
     public static String readUserEmail() {
         return Common.getTextFromElement(By.xpath("//p[@id='email']"));
+    }
+
+    public static void enterCurrentAddress(String input) {
+        Common.sendKeysToElement(
+                By.xpath("//textarea[@id='currentAddress']"),
+                input
+        );
+    }
+
+    public static String readCurrentAddress() {
+        return Common.getTextFromElement(By.xpath("//p[@id='currentAddress']"));
+    }
+
+    public static void enterPermanentAddress(String input) {
+        Common.sendKeysToElement(
+                By.xpath("//textarea[@id='permanentAddress']"),
+                input
+        );
+    }
+    public static String readPermanentAddress() {
+        return Common.getTextFromElement(By.xpath("//p[@id='permanentAddress']"));
     }
 }
