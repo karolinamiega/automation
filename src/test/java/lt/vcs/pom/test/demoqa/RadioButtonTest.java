@@ -18,7 +18,7 @@ public void testRadioButtonYes() throws InterruptedException {
     String expectedResult = "Yes";
     String actualResult;
 
-    Thread.sleep(3000);
+
     RadioButtonPage.clickOnRadioButtonYes();
     actualResult = RadioButtonPage.readSelectedResult();
 
@@ -33,7 +33,7 @@ public void testRadioButtonImpressive() throws InterruptedException {
     String expectedResult = "Impressive";
     String actualResult;
 
-    Thread.sleep(3000);
+
     RadioButtonPage.clickOnRadioButtonImpressive();
     actualResult = RadioButtonPage.readSelectedResult();
 
@@ -43,6 +43,42 @@ public void testRadioButtonImpressive() throws InterruptedException {
             "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
     );
 }
+
+@Test
+public void getMainCommonElementDetails() throws InterruptedException {
+
+    System.out.println("*** label YES ***");
+    RadioButtonPage.getLabelYesDetails();
+
+    System.out.println("\n *** input YES ***");
+    RadioButtonPage.getInputYesDetails();
+
+    RadioButtonPage.clickOnRadioButtonYes();
+    Thread.sleep(200);
+
+    System.out.println("\n *** input YES ***");
+    RadioButtonPage.getInputYesDetails();
+
+    System.out.println("\n *** input Impressive ***");
+    RadioButtonPage.getInputImpressiveDetails();
+
+    System.out.println("\n *** input No ***");
+    RadioButtonPage.getInputNoDetails();
+
+}
+
+@Test
+public void testRadioButtonNoIsDisabled(){
+    boolean actualResult = RadioButtonPage.isRadioButtonNoDisabled();
+
+
+    Assert.assertTrue(
+            actualResult,
+            "Button is not disabled"
+    );
+}
+
+
 
 
     @AfterMethod
