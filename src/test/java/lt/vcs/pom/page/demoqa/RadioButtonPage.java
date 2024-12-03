@@ -74,6 +74,6 @@ public class RadioButtonPage {
     }
 
     public static boolean isRadioButtonNoDisabled() {
-        return Common.isElementDisabled(inputNo);
+        return Common.isElementEnabled(inputNo);
     }
 }

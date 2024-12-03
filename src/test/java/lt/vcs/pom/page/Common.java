@@ -82,7 +82,7 @@ public class Common {
         return (Map<String, String>) getJsExecutor().executeScript(script, getElement(locator));
     }
 
-    public static boolean isElementDisabled(By locator) {
+    public static boolean isElementEnabled(By locator) {
         return getElement(locator).isEnabled();
     }
 
@@ -103,9 +103,26 @@ public class Common {
         }
         return false;
     }
+    public static WebDriverWait getWebDriverWait(int seconds){
+        return new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(seconds));
+    }
 
     public static void waitElementSelected(By locator, int seconds){
-        WebDriverWait webDriverWait = new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(seconds));
-        webDriverWait.until(ExpectedConditions.elementToBeSelected(locator));
+        getWebDriverWait(seconds).until(ExpectedConditions.elementToBeSelected(locator));
+    }
+
+    public static void waitElementIsClickable(By locator, int seconds) {
+        getWebDriverWait(seconds).until(ExpectedConditions.elementToBeClickable(locator));
+    }
+
+    public static void waitElementAttributeContains(
+            By locator, String attributeName, String attributeValueContains, int seconds
+    ) {
+    getWebDriverWait(seconds)
+            .until(ExpectedConditions.attributeContains(locator, attributeName, attributeValueContains));
+    }
+
+    public static void waitElementIsVisible(By locator, int seconds) {
+         getWebDriverWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 }
