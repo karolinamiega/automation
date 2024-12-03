@@ -2,7 +2,10 @@ package lt.vcs.pom.page.ultimateqa;
 
 import lt.vcs.pom.page.Common;
 import lt.vcs.pom.page.Locator;
+import lt.vcs.pom.test.TestBase;
 import org.openqa.selenium.By;
+
+import static lt.vcs.pom.page.Locator.UltimateQa.ElementsForAutomation.getRadioButtonGenderLocator;
 
 public class ElementsAutomationPage {
 
@@ -21,35 +24,40 @@ public class ElementsAutomationPage {
     }
 
     public static void clickOnRadioButtonMale() {
-        Common.clickOnElement(Locator.UltimateQa.ElementsForAutomation.inputMale);
+        Common.clickOnElement(getRadioButtonGenderLocator("male"));
     }
     public static void clickOnRadioButtonFemale() {
-        Common.clickOnElement(Locator.UltimateQa.ElementsForAutomation.inputFemale);
+        Common.clickOnElement(getRadioButtonGenderLocator("female"));
     }
 
     public static boolean isRadioButtonMaleSelected() {
-        return Common.waitCustomisedElementSelected(Locator.UltimateQa.ElementsForAutomation.inputMale, 6);
+        return Common.waitCustomisedElementSelected(getRadioButtonGenderLocator("male"), 6);
 
     }
 
     public static boolean isRadioButtonFemaleSelected() {
-        Common.waitElementSelected(Locator.UltimateQa.ElementsForAutomation.inputFemale, 6);
-        return Common.isElementSelected(Locator.UltimateQa.ElementsForAutomation.inputFemale);
+        Common.waitElementSelected(getRadioButtonGenderLocator("female"), 6);
+        return Common.isElementSelected(getRadioButtonGenderLocator("female"));
     }
 
     public static void clickOnRadioButtonOther() {
-        Common.clickOnElement(Locator.UltimateQa.ElementsForAutomation.inputOther);
+        Common.clickOnElement(getRadioButtonGenderLocator("other"));
     }
 
     public static boolean readSelectedResultMale() {
-        return Common.isElementSelected(Locator.UltimateQa.ElementsForAutomation.inputMale);
+        return Common.isElementSelected(getRadioButtonGenderLocator("male"));
     }
 
     public static boolean readSelectedResultFemale() {
-        return Common.isElementSelected(Locator.UltimateQa.ElementsForAutomation.inputFemale);
+        return Common.isElementSelected(getRadioButtonGenderLocator("female"));
     }
 
     public static boolean readSelectedResultOther() {
-        return Common.isElementSelected(Locator.UltimateQa.ElementsForAutomation.inputOther);
+        return Common.isElementSelected(getRadioButtonGenderLocator("other"));
+    }
+
+    public static boolean isRadioButtonOtherSelected() {
+        Common.waitElementSelected(getRadioButtonGenderLocator("other"), 6);
+        return Common.isElementSelected(getRadioButtonGenderLocator("other"));
     }
 }

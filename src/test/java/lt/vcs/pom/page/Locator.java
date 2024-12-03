@@ -35,6 +35,9 @@ public class Locator {
             public static final By inputFemale = By.xpath("//input[@value='female']");
             public static final By inputOther = By.xpath("//input[@value='other']");
 
+            public static By getRadioButtonGenderLocator(String value){
+                return By.xpath("//input[@name='gender' and @value='%s']".formatted(value));
+            }
         }
     }
 }

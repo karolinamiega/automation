@@ -3,25 +3,27 @@ package lt.vcs.pom.test.ultimateqa;
 import lt.vcs.pom.page.Common;
 import lt.vcs.pom.page.demoqa.RadioButtonPage;
 import lt.vcs.pom.page.ultimateqa.ElementsAutomationPage;
+import lt.vcs.pom.test.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-public class ElementsAutomationTest {
+public class ElementsAutomationTest extends TestBase {
+    @Override
     @BeforeMethod
     public void setUp() {
         ElementsAutomationPage.open();
     }
 
     @Test
-    public void testClickOnRadioButtonMale() throws InterruptedException {
+    public void testClickOnRadioButtonMale() {
         boolean actualResult;
 
         ElementsAutomationPage.clickOnRadioButtonMale();
-        Thread.sleep(500);
-        actualResult = ElementsAutomationPage.readSelectedResultMale();
+
+        actualResult = ElementsAutomationPage.isRadioButtonMaleSelected();
 
 
         Assert.assertTrue(
@@ -31,12 +33,12 @@ public class ElementsAutomationTest {
     }
 
     @Test
-    public void testClickOnRadioButtonFemale() throws InterruptedException {
+    public void testClickOnRadioButtonFemale()  {
         boolean actualResult;
 
         ElementsAutomationPage.clickOnRadioButtonFemale();
-        Thread.sleep(500);
-        actualResult = ElementsAutomationPage.readSelectedResultFemale();
+
+        actualResult = ElementsAutomationPage.isRadioButtonFemaleSelected();
 
 
         Assert.assertTrue(
@@ -47,12 +49,12 @@ public class ElementsAutomationTest {
     }
 
     @Test
-    public void testClickOnRadioButtonOther() throws InterruptedException {
+    public void testClickOnRadioButtonOther() {
         boolean actualResult;
 
         ElementsAutomationPage.clickOnRadioButtonOther();
-        Thread.sleep(500);
-        actualResult = ElementsAutomationPage.readSelectedResultOther();
+
+        actualResult = ElementsAutomationPage.isRadioButtonOtherSelected();
 
         Assert.assertTrue(
                 actualResult,
@@ -62,7 +64,7 @@ public class ElementsAutomationTest {
     }
 
     @Test
-    public void testRadioButtonGenderMaleSelected() throws InterruptedException {
+    public void testRadioButtonGenderMaleSelected() {
         boolean actualResult;
         ElementsAutomationPage.clickOnRadioButtonMale();
         actualResult = ElementsAutomationPage.isRadioButtonMaleSelected();
@@ -74,7 +76,7 @@ public class ElementsAutomationTest {
     }
 
     @Test
-    public void testRadioButtonGenderFemaleSelected() throws InterruptedException {
+    public void testRadioButtonGenderFemaleSelected() {
         boolean actualResult;
         ElementsAutomationPage.clickOnRadioButtonFemale();
         actualResult = ElementsAutomationPage.isRadioButtonFemaleSelected();
