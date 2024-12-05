@@ -4,16 +4,18 @@ import lt.vcs.pom.page.webdriveruniversity.ContactUsPage;
 import lt.vcs.pom.test.TestBase;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 public class ContactUsTest extends TestBase {
     @BeforeMethod
     @Override
-    public void setUp(){
+    public void setUp() {
         ContactUsPage.open();
     }
+
     @Test
-    public void testPositiveContactUsExpectedThanksMessage(){
+    public void testPositiveContactUsExpectedThanksMessage() {
         String firstName = "Vardenis";
         String lastName = "Pavardenis";
         String email = "demo@demo.com";
@@ -35,7 +37,6 @@ public class ContactUsTest extends TestBase {
         actualUrl = ContactUsPage.readNewUrl();
 
 
-
         Assert.assertTrue(
                 actualResult.contains(expectedResult),
                 "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
@@ -45,7 +46,7 @@ public class ContactUsTest extends TestBase {
     }
 
     @Test
-    public void testNegativeEmptyFirstName(){
+    public void testNegativeEmptyFirstName() {
         String firstName = "";
         String lastName = "Pavardenis";
         String email = "demo@demo.com";
@@ -67,7 +68,7 @@ public class ContactUsTest extends TestBase {
     }
 
     @Test
-    public void testNegativeEmptyLastName(){
+    public void testNegativeEmptyLastName() {
         String firstName = "Vardenis";
         String lastName = "";
         String email = "demo@demo.com";
@@ -89,7 +90,7 @@ public class ContactUsTest extends TestBase {
     }
 
     @Test
-    public void testNegativeEmptyEmail(){
+    public void testNegativeEmptyEmail() {
         String firstName = "Vardenis";
         String lastName = "Pavardenis";
         String email = "";
@@ -111,7 +112,7 @@ public class ContactUsTest extends TestBase {
     }
 
     @Test
-    public void testNegativeEmptyComments(){
+    public void testNegativeEmptyComments() {
         String firstName = "Vardenis";
         String lastName = "Pavardenis";
         String email = "demo@demo.com";
@@ -130,5 +131,76 @@ public class ContactUsTest extends TestBase {
                 actualResult.contains(expectedResult),
                 "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
         );
+    }
+
+
+    //vienas pozityvus, keturi negatyvus su DataProvider
+
+    @DataProvider(name = "provideDataTestContactUs")
+    public Object[][] provideDataForDataTestContactUs() {
+        return new Object[][]{
+                {true, "Vardenis", "Pavardenis", "demo@demo.com",
+                        "My special comments, 987437819, %^$@^*&", "Thank You for your Message!",
+                        "Gianni Bruno - Designer",
+                        "https://webdriveruniversity.com/Contact-Us/contact-form-thank-you.html"
+                },
+                {false, "", "Pavardenis", "demo@demo.com",
+                        "My special comments, 987437819, %^$@^*&", "Error: all fields are required",
+                        "Contact form handler",
+                        "https://webdriveruniversity.com/Contact-Us/contact_us.php"
+                },
+                {false, "Vardenis", "", "demo@demo.com",
+                        "My special comments, 987437819, %^$@^*&", "Error: all fields are required",
+                        "Contact form handler",
+                        "https://webdriveruniversity.com/Contact-Us/contact_us.php"
+                },
+                {false, "Vardenis", "Pavardenis", "",
+                        "My special comments, 987437819, %^$@^*&", "Error: all fields are required\nError: Invalid email address",
+                        "Contact form handler",
+                        "https://webdriveruniversity.com/Contact-Us/contact_us.php"
+                },
+                {false, "Vardenis", "Pavardenis", "demo@demo.com",
+                        "",
+                        "Error: all fields are required", "Contact form handler",
+                        "https://webdriveruniversity.com/Contact-Us/contact_us.php"
+                }
+        };
+    }
+
+    @Test(dataProvider = "provideDataTestContactUs")
+    public void testContactUs(
+            Boolean positive,
+            String firstName,
+            String lastName,
+            String email,
+            String comments,
+            String expectedMessage,
+            String expectedTitle,
+            String expectedUrl
+    ) {
+        String actualMessage;
+        String actualTitle = ContactUsPage.readTitle();
+        String actualUrl = ContactUsPage.readNewUrl();
+
+        ContactUsPage.enterFirstName(firstName);
+        ContactUsPage.enterLastName(lastName);
+        ContactUsPage.enterEmail(email);
+        ContactUsPage.enterComments(comments);
+        ContactUsPage.clickOnButtonSubmit();
+
+        if (positive) {
+            actualMessage = ContactUsPage.readThanksMessage();
+        } else {
+            actualMessage = ContactUsPage.readErrorMessage();
+        }
+
+        Assert.assertTrue(
+                actualMessage.contains(expectedMessage),
+                "\nActual: %s\nExpected contains: %s".formatted(actualMessage, expectedMessage)
+        );
+
+        Assert.assertEquals(actualTitle, expectedTitle);
+        Assert.assertEquals(actualUrl, expectedUrl);
+
     }
 }
