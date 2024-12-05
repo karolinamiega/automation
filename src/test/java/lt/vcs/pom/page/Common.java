@@ -29,6 +29,14 @@ public class Common {
         Driver.quitDriver();
     }
 
+    public static String getTabTitle() {
+       return Driver.getDriver().getTitle();
+    }
+
+    public static String getCurrentUrl() {
+        return Driver.getDriver().getCurrentUrl();
+    }
+
     private static JavascriptExecutor getJsExecutor(){
         return (JavascriptExecutor) Driver.getDriver();
     }
@@ -85,7 +93,6 @@ public class Common {
     public static boolean isElementEnabled(By locator) {
         return getElement(locator).isEnabled();
     }
-
     public static boolean isElementSelected(By locator) {
         return getElement(locator).isSelected();
     }
@@ -103,6 +110,7 @@ public class Common {
         }
         return false;
     }
+
     public static WebDriverWait getWebDriverWait(int seconds){
         return new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(seconds));
     }
@@ -124,5 +132,19 @@ public class Common {
 
     public static void waitElementIsVisible(By locator, int seconds) {
          getWebDriverWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    public static void waitForPageLoadAndAjaxComplete(int seconds) {
+        getWebDriverWait(seconds).until(
+                driver -> {
+                    // Tikrina puslapio būklę ir aktyvias užklausas
+                    String readyState = (String) getJsExecutor().executeScript("return document.readyState");
+                    Boolean ajaxComplete = (Boolean) getJsExecutor().executeScript(
+                            "return (typeof jQuery !== 'undefined' ? jQuery.active == 0 : true) && " +
+                                    "!(window.fetch && window.__pendingFetchCount > 0);"
+                    );
+                    return "complete".equals(readyState) && ajaxComplete;
+                }
+        );
     }
 }

@@ -1,6 +1,7 @@
 package lt.vcs.pom.test.ultimateqa;
 
 import lt.vcs.pom.page.Common;
+import lt.vcs.pom.page.Locator;
 import lt.vcs.pom.page.demoqa.RadioButtonPage;
 import lt.vcs.pom.page.ultimateqa.ElementsAutomationPage;
 import lt.vcs.pom.test.TestBase;
@@ -86,9 +87,23 @@ public class ElementsAutomationTest extends TestBase {
                 "\nButton is not disabled"
         );
     }
+    @Test
+    public void testFormEmailMe_NameVardenisAndValidEmail(){
+        String userName = "Vardenis";
+        String email = "demo@demo.com";
+        String expectedResult = "Thanks for contacting us";
+        String actualResult;
 
-    @AfterMethod
-    public void tearDown() {
-        ElementsAutomationPage.close();
+        ElementsAutomationPage.enterUserName(userName);
+        ElementsAutomationPage.enterEmail(email);
+        ElementsAutomationPage.clickOnButtonEmailMe();
+        actualResult = ElementsAutomationPage.readThanksMessage();
+
+        Assert.assertTrue(
+                actualResult.contains(expectedResult),
+                "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
+        );
     }
+
+
 }

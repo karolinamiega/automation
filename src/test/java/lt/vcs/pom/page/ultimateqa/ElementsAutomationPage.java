@@ -5,7 +5,7 @@ import lt.vcs.pom.page.Locator;
 import lt.vcs.pom.test.TestBase;
 import org.openqa.selenium.By;
 
-import static lt.vcs.pom.page.Locator.UltimateQa.ElementsForAutomation.getRadioButtonGenderLocator;
+import static lt.vcs.pom.page.Locator.UltimateQa.ElementsForAutomation.*;
 
 public class ElementsAutomationPage {
 
@@ -59,5 +59,31 @@ public class ElementsAutomationPage {
     public static boolean isRadioButtonOtherSelected() {
         Common.waitElementSelected(getRadioButtonGenderLocator("other"), 6);
         return Common.isElementSelected(getRadioButtonGenderLocator("other"));
+    }
+
+    public static void enterUserName(String userName) {
+        Common.sendKeysToElement(inputUserName, userName);
+
+    }
+
+    public static void enterEmail(String email) {
+        Common.sendKeysToElement(inputEmail, email);
+    }
+
+    public static void clickOnButtonEmailMe() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Common.clickOnElement(buttonEmailMe);
+
+        Common.waitElementIsClickable(buttonEmailMe, 10);
+        Common.clickOnElement(buttonEmailMe);
+    }
+
+    public static String readThanksMessage() {
+        Common.waitElementIsVisible(paragraphThanksMessage, 10);
+        return Common.getTextFromElement(paragraphThanksMessage);
     }
 }
