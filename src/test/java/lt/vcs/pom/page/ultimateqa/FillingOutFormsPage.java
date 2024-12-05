@@ -2,6 +2,7 @@ package lt.vcs.pom.page.ultimateqa;
 
 import lt.vcs.pom.page.Common;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 public class FillingOutFormsPage {
     public static final By inputName = By.xpath("//input[@id='et_pb_contact_name_0']");
@@ -39,6 +40,11 @@ public class FillingOutFormsPage {
     }
     public static String readErrorMessageTwo() {
         Common.waitForPageLoadAndAjaxComplete( 7);
+        return Common.getTextFromElement(errorMessageTwo);
+    }
+
+    public static String readErrorMessageField() {
+        Common.waitElementIsVisible(errorMessageTwo, 10);
         return Common.getTextFromElement(errorMessageTwo);
     }
 }
