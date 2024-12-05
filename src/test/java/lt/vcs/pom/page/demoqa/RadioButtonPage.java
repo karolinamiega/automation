@@ -11,6 +11,10 @@ public class RadioButtonPage {
     private static final By inputImpressive = By.xpath("//input[@id='impressiveRadio']");
     private static final By inputNo = By.xpath("//input[@id='noRadio']");
 
+    private static By getRadioButtonLocator(String value){
+        return By.xpath("//label[@for='%s']".formatted(value));
+    }
+
     public static void open() {
         Common.setUpChrome(8);
         Common.openUrl("https://demoqa.com/radio-button");
@@ -75,5 +79,11 @@ public class RadioButtonPage {
 
     public static boolean isRadioButtonNoDisabled() {
         return Common.isElementEnabled(inputNo);
+    }
+
+    public static void clickOnRadioButton(String value){
+        Common.clickOnElement(
+                getRadioButtonLocator(value)
+        );
     }
 }
