@@ -5,9 +5,11 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +37,10 @@ public class Common {
 
     public static String getCurrentUrl() {
         return Driver.getDriver().getCurrentUrl();
+    }
+    public static String getCurrentLogo() {
+        WebElement logoElement = Driver.getDriver().findElement(By.xpath("//div[@id='root']//div[contains(normalize-space(text()), 'Swag Labs')]"));
+        return logoElement.getText();
     }
 
     private static JavascriptExecutor getJsExecutor(){
@@ -146,5 +152,37 @@ public class Common {
                     return "complete".equals(readyState) && ajaxComplete;
                 }
         );
+    }
+
+    private static Select getSelectElement(By locator){
+        return new Select(getElement(locator));
+    }
+
+
+    public static void selectOptionByValue(By locator, String value) {
+        getSelectElement(locator).selectByValue(value);
+//        getSelectElement(locator).selectByIndex(2);
+    }
+
+    public static String readSelectedOptionValue(By locator) {
+        return getSelectElement(locator).getFirstSelectedOption().getAttribute("value");
+    }
+
+    public static void selectMultipleValues(By locator, List<String> values) {
+        Select select = getSelectElement(locator);
+        for(String value : values){
+            select.selectByValue(value);
+        }
+
+    }
+
+    public static List<String> getSelectedOptionValues(By locator) {
+        List<String> selectedValues = new ArrayList<>();
+        List<WebElement> allSelectedOptions = getSelectElement(locator).getAllSelectedOptions();
+
+        for (WebElement element : allSelectedOptions) {
+            selectedValues.add(element.getAttribute("value"));
+        }
+        return selectedValues;
     }
 }
