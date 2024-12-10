@@ -45,10 +45,13 @@ public class Locator {
             public static final By inputEmail = By.xpath("//input[@data-original_id='email']");
             public static final By buttonEmailMe = By.xpath("//div[@id='et_pb_contact_form_0']//button");
             public static final By paragraphThanksMessage = By.xpath("//div[@class='et-pb-contact-message']");
+            public static final By buttonSubmit2 = By.xpath("(//button[@id='button1'])[2]");
 
             public static By getRadioButtonGenderLocator(String value){
                 return By.xpath("//input[@name='gender' and @value='%s']".formatted(value));
             }
+
+
         }
     }
 }

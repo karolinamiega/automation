@@ -3,7 +3,9 @@ package lt.vcs.pom.page;
 import lt.vcs.pom.util.Driver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -197,5 +199,21 @@ public class Common {
         }
 
         return textFromElements;
+    }
+
+    public static void scrollDownWithJSExecutor() {
+        getJsExecutor().executeScript("window.scroll(0, 500);");
+    }
+
+    public static void scrollDownWithJSExecutorToElement(By locator) {
+        getJsExecutor().executeScript("arguments[0].scrollIntoView(true)", getElement(locator));
+    }
+
+    public static void scrollDownWithActions() {
+        Actions actions = new Actions(Driver.getDriver());
+        actions
+                .sendKeys(Keys.PAGE_DOWN)
+                .build()
+                .perform();
     }
 }

@@ -86,4 +86,17 @@ public class ElementsAutomationPage {
         Common.waitElementIsVisible(paragraphThanksMessage, 10);
         return Common.getTextFromElement(paragraphThanksMessage);
     }
+
+    public static void scrollDownJSExecutor() {
+        Common.scrollDownWithJSExecutor();
+    }
+
+    public static void scrollDownJSToElement() {
+        Common.scrollDownWithJSExecutorToElement(buttonSubmit2);
+
+    }
+
+    public static void scrollDownActions() {
+        Common.scrollDownWithActions();
+    }
 }
