@@ -185,4 +185,17 @@ public class Common {
         }
         return selectedValues;
     }
+
+    public static void clickOnElements(By locator) {
+        getElements(locator).forEach(WebElement::click);
+    }
+    public static List<String> getTextFromElements(By locator) {
+        List<String> textFromElements = new ArrayList<>();
+
+        for (WebElement element : getElements(locator)) {
+            textFromElements.add(element.getText());
+        }
+
+        return textFromElements;
+    }
 }

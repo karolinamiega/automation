@@ -27,4 +27,13 @@ public class SauceDemoLoginPage {
         Common.clickOnElement(login);
     }
 
+
+    public static void login(String userName, String password) {
+        open();
+        inputUserName(userName);
+        inputPassword(password);
+        clickLoginButton();
+        Common.waitForPageLoadAndAjaxComplete(10);
+    }
+
 }
