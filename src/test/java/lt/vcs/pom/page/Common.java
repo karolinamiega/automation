@@ -5,6 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
@@ -17,10 +18,11 @@ import java.util.List;
 import java.util.Map;
 
 public class Common {
-    public static void setUpChrome(){
+    public static void setUpChrome() {
         Driver.setChromeDriver();
     }
-    public static void setUpChrome(int sec){
+
+    public static void setUpChrome(int sec) {
         Driver.setChromeDriver();
         Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(sec));
     }
@@ -34,26 +36,27 @@ public class Common {
     }
 
     public static String getTabTitle() {
-       return Driver.getDriver().getTitle();
+        return Driver.getDriver().getTitle();
     }
 
     public static String getCurrentUrl() {
         return Driver.getDriver().getCurrentUrl();
     }
+
     public static String getCurrentLogo() {
         WebElement logoElement = Driver.getDriver().findElement(By.xpath("//div[@id='root']//div[contains(normalize-space(text()), 'Swag Labs')]"));
         return logoElement.getText();
     }
 
-    private static JavascriptExecutor getJsExecutor(){
+    private static JavascriptExecutor getJsExecutor() {
         return (JavascriptExecutor) Driver.getDriver();
     }
 
-    private static WebElement getElement(By locator){
+    private static WebElement getElement(By locator) {
         return Driver.getDriver().findElement(locator);
     }
 
-    private static List<WebElement> getElements(By locator){
+    private static List<WebElement> getElements(By locator) {
         return Driver.getDriver().findElements(locator);
     }
 
@@ -101,29 +104,30 @@ public class Common {
     public static boolean isElementEnabled(By locator) {
         return getElement(locator).isEnabled();
     }
+
     public static boolean isElementSelected(By locator) {
         return getElement(locator).isSelected();
     }
 
-    public static boolean waitCustomisedElementSelected(By locator, int seconds){
+    public static boolean waitCustomisedElementSelected(By locator, int seconds) {
         WebElement element = getElement(locator);
 
-            for (int i = 0; i < seconds * 2; i++) {
-                try {
-                if(element.isSelected()) return true;
+        for (int i = 0; i < seconds * 2; i++) {
+            try {
+                if (element.isSelected()) return true;
                 Thread.sleep(500);
             } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+                e.printStackTrace();
+            }
         }
         return false;
     }
 
-    public static WebDriverWait getWebDriverWait(int seconds){
+    public static WebDriverWait getWebDriverWait(int seconds) {
         return new WebDriverWait(Driver.getDriver(), Duration.ofSeconds(seconds));
     }
 
-    public static void waitElementSelected(By locator, int seconds){
+    public static void waitElementSelected(By locator, int seconds) {
         getWebDriverWait(seconds).until(ExpectedConditions.elementToBeSelected(locator));
     }
 
@@ -134,12 +138,12 @@ public class Common {
     public static void waitElementAttributeContains(
             By locator, String attributeName, String attributeValueContains, int seconds
     ) {
-    getWebDriverWait(seconds)
-            .until(ExpectedConditions.attributeContains(locator, attributeName, attributeValueContains));
+        getWebDriverWait(seconds)
+                .until(ExpectedConditions.attributeContains(locator, attributeName, attributeValueContains));
     }
 
     public static void waitElementIsVisible(By locator, int seconds) {
-         getWebDriverWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
+        getWebDriverWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     public static void waitForPageLoadAndAjaxComplete(int seconds) {
@@ -156,7 +160,7 @@ public class Common {
         );
     }
 
-    private static Select getSelectElement(By locator){
+    private static Select getSelectElement(By locator) {
         return new Select(getElement(locator));
     }
 
@@ -172,7 +176,7 @@ public class Common {
 
     public static void selectMultipleValues(By locator, List<String> values) {
         Select select = getSelectElement(locator);
-        for(String value : values){
+        for (String value : values) {
             select.selectByValue(value);
         }
 
@@ -191,6 +195,7 @@ public class Common {
     public static void clickOnElements(By locator) {
         getElements(locator).forEach(WebElement::click);
     }
+
     public static List<String> getTextFromElements(By locator) {
         List<String> textFromElements = new ArrayList<>();
 
@@ -209,10 +214,38 @@ public class Common {
         getJsExecutor().executeScript("arguments[0].scrollIntoView(true)", getElement(locator));
     }
 
+    public static void waitElementToBeVisible(By locator, int seconds) {
+        getWebDriverWait(seconds).until(ExpectedConditions.visibilityOfElementLocated(locator));
+    }
+
+    private static Actions getActions() {
+        return new Actions(Driver.getDriver());
+    }
+
     public static void scrollDownWithActions() {
-        Actions actions = new Actions(Driver.getDriver());
-        actions
+        getActions()
                 .sendKeys(Keys.PAGE_DOWN)
+                .build()
+                .perform();
+    }
+
+    public static void clickOnElementWithActions(By locator) {
+        getActions()
+                .click(getElement(locator))
+                .build()
+                .perform();
+    }
+
+    public static void clickOnElementDoubleWithActions(By locator) {
+        getActions()
+                .doubleClick(getElement(locator))
+                .build()
+                .perform();
+    }
+
+    public static void clickOnElementRightWithActions(By locator) {
+        getActions()
+                .contextClick(getElement(locator))
                 .build()
                 .perform();
     }
