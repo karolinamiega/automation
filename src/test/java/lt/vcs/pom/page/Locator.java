@@ -15,6 +15,7 @@ public class Locator {
             public static final By inputNo = By.xpath("//input[@id='noRadio']");
 
         }
+
         public static class TextBoxPage {
 
             public static By inputUserName = By.xpath("//input[@id='userName']");
@@ -29,29 +30,46 @@ public class Locator {
 
         }
 
-        public static class DynamicProperties{
+        public static class DynamicProperties {
             public static By buttonEnableAfter = By.xpath("//button[@id='enableAfter']");
             public static By buttonColorChange = By.xpath("//button[@id='colorChange']");
             public static By buttonVisibleAfter = By.xpath("//button[@id='visibleAfter']");
         }
-    }
-    public static class UltimateQa {
 
-        public static class ElementsForAutomation {
-            public static final By inputMale = By.xpath("//input[@value='male']");
-            public static final By inputFemale = By.xpath("//input[@value='female']");
-            public static final By inputOther = By.xpath("//input[@value='other']");
-            public static final By inputUserName = By.xpath("//input[@data-original_id='name']");
-            public static final By inputEmail = By.xpath("//input[@data-original_id='email']");
-            public static final By buttonEmailMe = By.xpath("//div[@id='et_pb_contact_form_0']//button");
-            public static final By paragraphThanksMessage = By.xpath("//div[@class='et-pb-contact-message']");
-            public static final By buttonSubmit2 = By.xpath("(//button[@id='button1'])[2]");
+        public static class Checkbox {
+            public static final By buttonExpandAll = By.xpath("//button[@title='Expand all']");
 
-            public static By getRadioButtonGenderLocator(String value){
-                return By.xpath("//input[@name='gender' and @value='%s']".formatted(value));
+            public static By getCheckboxLabelLocator(String value) {
+                return By.xpath(
+                        "//label[@for='tree-node-%s']".formatted(value)
+                );
             }
 
-
+            public static By getCheckboxLocator(String value) {
+                return By.xpath(
+                        "//label[@for='tree-node-%s']/../..//input".formatted(value)
+                );
+            }
         }
     }
-}
+        public static class UltimateQa {
+
+            public static class ElementsForAutomation {
+                public static final By inputMale = By.xpath("//input[@value='male']");
+                public static final By inputFemale = By.xpath("//input[@value='female']");
+                public static final By inputOther = By.xpath("//input[@value='other']");
+                public static final By inputUserName = By.xpath("//input[@data-original_id='name']");
+                public static final By inputEmail = By.xpath("//input[@data-original_id='email']");
+                public static final By buttonEmailMe = By.xpath("//div[@id='et_pb_contact_form_0']//button");
+                public static final By paragraphThanksMessage = By.xpath("//div[@class='et-pb-contact-message']");
+                public static final By buttonSubmit2 = By.xpath("(//button[@id='button1'])[2]");
+
+                public static By getRadioButtonGenderLocator(String value) {
+                    return By.xpath("//input[@name='gender' and @value='%s']".formatted(value));
+                }
+
+
+            }
+        }
+    }
+

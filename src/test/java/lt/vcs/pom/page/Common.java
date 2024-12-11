@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Common {
     public static void setUpChrome() {
@@ -250,6 +251,17 @@ public class Common {
 
     public static WebElement findElement(By locator) {
         return Driver.getDriver().findElement(locator);
+    }
+
+
+    public static List<Boolean> getListAllElementsSelected(By locator) {
+        List<Boolean> selectedElements = new ArrayList<>();
+
+        for (WebElement element : getElements(locator)) {
+            selectedElements.add(element.isSelected());
+        }
+
+        return selectedElements;
     }
 
 
