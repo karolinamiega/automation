@@ -19,7 +19,7 @@ public class Driver {
         WebDriverManager.chromedriver().setup();
         ChromeOptions chromeOptions = new ChromeOptions();
         chromeOptions.addArguments("--start-maximized");
-//        chromeOptions.addArguments("--headless=new");
+        chromeOptions.addArguments("--headless=new");
         chromeOptions.addArguments("--window-position=1000,0");
 
 //      Zoom solution for Windows

@@ -10,11 +10,12 @@ import org.testng.annotations.Test;
 public class FillingOutFormsTest extends TestBase {
     @BeforeMethod
     @Override
-    public void setUp(){
+    public void setUp() {
         FillingOutFormsPage.open();
     }
+
     @Test
-    public void testPositiveFillingOutFormsExpectedThanksMessage(){
+    public void testPositiveFillingOutFormsExpectedThanksMessage() {
         String name = "Vardenis";
         String message = "dsjkahdjkshajkdhsk";
         String expectedResult = "Thanks for contacting us";
@@ -32,8 +33,9 @@ public class FillingOutFormsTest extends TestBase {
                 "\nActual: %s\nExpected contains: %s".formatted(actualResult, expectedResult)
         );
     }
+
     @Test
-    public void testNegativeFillingOutFormsEmptyName(){
+    public void testNegativeFillingOutFormsEmptyName() {
         String name = "";
         String message = "dsjkahdjkshajkdhsk";
 
@@ -58,7 +60,7 @@ public class FillingOutFormsTest extends TestBase {
     }
 
     @Test
-    public void testNegativeFillingOutFormsEmptyMessage(){
+    public void testNegativeFillingOutFormsEmptyMessage() {
         String name = "Vardenis";
         String message = "";
 
@@ -83,10 +85,8 @@ public class FillingOutFormsTest extends TestBase {
     }
 
 
-
-
     @DataProvider(name = "provideDataTestContactForm")
-    public Object[][] provideDataForTestContactForm(){
+    public Object[][] provideDataForTestContactForm() {
         return new Object[][]{
                 {true, "Vardenis", "My message", "Thanks for contacting us", ""},
                 {false, "", "Hello there", "Please, fill in the following fields: ", "Name"},
@@ -94,8 +94,9 @@ public class FillingOutFormsTest extends TestBase {
 
         };
     }
+
     @Test(dataProvider = "provideDataTestContactForm")
-    public void testContactForm(Boolean positive, String name, String message, String expectedMessage, String errorItem){
+    public void testContactForm(Boolean positive, String name, String message, String expectedMessage, String errorItem) {
         FillingOutFormsPage.enterName(name);
         FillingOutFormsPage.enterMessage(message);
         FillingOutFormsPage.pressSubmitButton();
@@ -104,13 +105,13 @@ public class FillingOutFormsTest extends TestBase {
         String actualErrorItem;
 
 
-        if(positive){
-             actualMessage = FillingOutFormsPage.readInput();
+        if (positive) {
+            actualMessage = FillingOutFormsPage.readInput();
             actualErrorItem = "";
         } else {
-             actualMessage = FillingOutFormsPage.readErrorMessageOne() + " " + FillingOutFormsPage.readErrorMessageTwo();
+            actualMessage = FillingOutFormsPage.readErrorMessageOne() + " " + FillingOutFormsPage.readErrorMessageTwo();
             actualErrorItem = FillingOutFormsPage.readErrorMessageField();
-            }
+        }
 
         Assert.assertTrue(
                 actualMessage.contains(expectedMessage),
@@ -121,7 +122,7 @@ public class FillingOutFormsTest extends TestBase {
                 actualMessage.contains(expectedMessage) && actualErrorItem.contains(errorItem),
                 "\nActual: %s\nExpected contains: %s".formatted(actualErrorItem, errorItem)
         );
-        }
+    }
 
 
 }
